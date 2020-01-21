@@ -1,5 +1,5 @@
 describe('fahrenheit-to-celsius', () => {
     test('canary verifies test tools', () => {
-        expect(true).toEqual(true);
+        expect(true).toEqual(false);
     })
 });
