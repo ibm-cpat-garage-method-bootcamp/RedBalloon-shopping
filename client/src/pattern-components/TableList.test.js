@@ -11,13 +11,20 @@ test("Table List exists (canary)", () => {
   expect(taElement).toBeInTheDocument();
 });
 
- test("Table Row Count is equal to data count", () => {
-   const { getByTestId } = render(<TableList />);
-   const taElement = getByTestId("test-row-count");
-   //console.log(taElement.getAttribute('value'));
-   const boolean = Boolean(taElement.getAttribute('value'));
-   expect(boolean).toBe(true);
- });
+test("Table Row Count is equal to data count", () => {
+  const { getByTestId } = render(<TableList />);
+  const taElement = getByTestId("test-row-count");
+  //console.log(taElement.getAttribute('value'));
+  const boolean = Boolean(taElement.getAttribute('value'));
+  expect(boolean).toBe(true);
+});
+
+test("Table Row: Checking Item Status if it needs to be restocked", () => {
+  const { getByTestId } = render(<TableList />);
+  const taElement = getByTestId("test-row-status");
+  const boolean = Boolean(taElement.getAttribute('status'));
+  expect(boolean).toBe(true);
+});
 
 /* Could also include tests for other elements */
 

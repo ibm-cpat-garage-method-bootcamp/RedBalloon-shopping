@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./App.scss";
 
-import ItemsForm from './components/ItemsForm'
+import UIShell from './components/UIShell'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <ItemsForm />
+        <UIShell />
       </div>
     );
   }

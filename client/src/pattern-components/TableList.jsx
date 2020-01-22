@@ -28,21 +28,25 @@ class TableList extends Component {
       Name: "Corn",
       Size: "Medium",
       Comment: "I love Elote",
+      Status: false
     },
     {
       Name: "Chocolate Milk",
       Size: "Large",
       Comment: "",
+      Status: false
     },
     {
       Name: "Chicken Breast",
       Size: "10 lbs",
-      Comment: "Organic Only",    
+      Comment: "Organic Only",  
+      Status: false  
     },
     {
       Name: "Celery",
       Size: "50 oz",
       Comment: "",
+      Status: false
     }
   ];
 
@@ -61,8 +65,17 @@ class TableList extends Component {
     })
   }
 
+  doNothing = i => {
+
+  }
+
   onRowClick = id => {
-    this.setState({ selectedRow: id });
+    if (this.data[id].Status === false){
+      this.data[id].Status = true;
+    } else {
+      this.data[id].Status = false;
+    }
+    this.setState({ data: this.data });
   };
 
   renderRow = (row, id) => {
@@ -75,14 +88,11 @@ class TableList extends Component {
             title="row-0"
             name="row-0"
             //defaultChecked={this.state.selectedRow === id}
-            checked={this.state.selectedRow === id}
+            checked={row.Status}
           />
-          {/* <StructuredListCell>
-            <Icon
-              className="bx--structured-list-svg"
-              icon={iconCheckmarkSolid}
-            />
-          </StructuredListCell> */}
+          <StructuredListCell>
+            <input type="checkbox" checked={row.Status} onChange={this.doNothing}/>
+          </StructuredListCell>
         </div>
         {this.columns.map(col => {
           const format = this.formatters[col] || function(val) { return val; };
@@ -136,7 +146,7 @@ class TableList extends Component {
                   return this.renderRow(row, i);
                 })}
                 
-                <div data-testid="test-row-count" value={datalength_equals_rows}></div>
+                <div data-testid="test-row-count" value={datalength_equals_rows} ></div>
               </StructuredListBody>
             </StructuredListWrapper>
           </div>
