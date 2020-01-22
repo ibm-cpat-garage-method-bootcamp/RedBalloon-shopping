@@ -5,11 +5,19 @@ import '@testing-library/jest-dom';
 
 afterEach(cleanup);
 
-test("text area exists (canary)", () => {
+test("Table List exists (canary)", () => {
   const { getByTestId } = render(<TableList />);
   const taElement = getByTestId("input-listwrapper");
   expect(taElement).toBeInTheDocument();
 });
+
+ test("Table Row Count is equal to data count", () => {
+   const { getByTestId } = render(<TableList />);
+   const taElement = getByTestId("test-row-count");
+   //console.log(taElement.getAttribute('value'));
+   const boolean = Boolean(taElement.getAttribute('value'));
+   expect(boolean).toBe(true);
+ });
 
 /* Could also include tests for other elements */
 

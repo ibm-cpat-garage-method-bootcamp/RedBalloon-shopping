@@ -99,7 +99,8 @@ class TableList extends Component {
 
   render() {
     const data = this.state.data;
-
+    
+    var datalength_equals_rows = true;
     return (
       <div className="bx--grid pattern-container">
         <Header
@@ -126,8 +127,16 @@ class TableList extends Component {
 
               <StructuredListBody>
                 {data.map((row, i) => {
+                  
+                  if (i + 1 === data.length){
+                    datalength_equals_rows = true;
+                  } else {
+                    datalength_equals_rows = false;
+                  }
                   return this.renderRow(row, i);
                 })}
+                
+                <div data-testid="test-row-count" value={datalength_equals_rows}></div>
               </StructuredListBody>
             </StructuredListWrapper>
           </div>
