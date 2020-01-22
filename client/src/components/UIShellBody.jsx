@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import AddItem from "./AddItem";
 import { ItemManager } from "./ItemManager"
+import SimpleList from "../pattern-components/SimpleList";
+import TableList from "../pattern-components/TableList";
 import "../pattern-components/patterns.scss";
 
 class UIShellBody extends Component {
   components = {
     "Add Item": AddItem,
+    "Simple List": SimpleList,
+    "Basic Page": TableList
   };
   defaultComponent = "Add Item";
 

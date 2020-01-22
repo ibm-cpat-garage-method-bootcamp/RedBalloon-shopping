@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import "./patterns.scss";
+import "./TableList";
 
 class BasicPage extends Component {
   constructor(props) {
