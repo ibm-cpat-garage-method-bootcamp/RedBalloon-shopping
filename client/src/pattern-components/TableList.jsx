@@ -13,10 +13,10 @@ import Header from "./Header";
 import "./patterns.scss";
 
 class TableList extends Component {
-  title = 'Table List';
-  subtitle = 'This pattern will display and array of model objects in a multi column grid/table.';
+  title = 'Shopping List';
+  //subtitle = 'This pattern will display and array of model objects in a multi column grid/table.';
 
-  columns = ['Name', 'Address', 'City', 'State', 'ZipCode', 'Country'];
+  columns = ['Name', 'Size', 'Comment'];
   formatters = {
     'ZipCode': function(val) {
       return val + '-0000';
@@ -25,28 +25,24 @@ class TableList extends Component {
 
   data = [
     {
-      Name: "Lin",
-      Address: "123 Main Street",
-      City: "Austin",
-      State: "TX",
-      ZipCode: "12345",
-      Country: "United States"
+      Name: "Corn",
+      Size: "Medium",
+      Comment: "I love Elote",
     },
     {
-      Name: "Mak",
-      Address: "45 2nd Street",
-      City: "Austin",
-      State: "TX",
-      ZipCode: "78766",
-      Country: "United States"
+      Name: "Chocolate Milk",
+      Size: "Large",
+      Comment: "",
     },
     {
-      Name: "Joe",
-      Address: "40 Down Street",
-      City: "San Francisco",
-      State: "CA",
-      ZipCode: "90706",
-      Country: "United States"
+      Name: "Chicken Breast",
+      Size: "10 lbs",
+      Comment: "Organic Only",    
+    },
+    {
+      Name: "Celery",
+      Size: "50 oz",
+      Comment: "",
     }
   ];
 
@@ -81,12 +77,12 @@ class TableList extends Component {
             //defaultChecked={this.state.selectedRow === id}
             checked={this.state.selectedRow === id}
           />
-          <StructuredListCell>
+          {/* <StructuredListCell>
             <Icon
               className="bx--structured-list-svg"
               icon={iconCheckmarkSolid}
             />
-          </StructuredListCell>
+          </StructuredListCell> */}
         </div>
         {this.columns.map(col => {
           const format = this.formatters[col] || function(val) { return val; };
@@ -108,11 +104,12 @@ class TableList extends Component {
       <div className="bx--grid pattern-container">
         <Header
           title={this.title}
-          subtitle={this.subtitle}
+          //subtitle={this.subtitle}
         />
         <div className="bx--row">
           <div className="bx--col-xs-12">
-            <StructuredListWrapper selection border>
+            <StructuredListWrapper selection border
+            data-testid="input-listwrapper">
               <StructuredListHead>
                 <StructuredListRow head>
                   <StructuredListCell head />

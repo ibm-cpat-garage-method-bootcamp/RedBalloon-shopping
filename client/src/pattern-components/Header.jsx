@@ -8,7 +8,7 @@ class Header extends Component {
       <div className="bx--row pattern-description">
         <div className="bx--col-xs-12">
           <h1 className="pattern-title">{title}</h1>
-          <div
+          {/* <div
             data-notification
             className="bx--inline-notification bx--inline-notification--info"
             role="alert"
@@ -28,7 +28,7 @@ class Header extends Component {
                 <p className="bx--inline-notification__subtitle">{subtitle}</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
