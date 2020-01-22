@@ -34,7 +34,7 @@ const Fade20 = () => (
 class UIShell extends Component {
   header = "Menu Header";
   menuTitle = "Menu Title";
-  menuItems = ["Simple List", "Item Two", "Item Three"];
+  menuItems = ["Add Item"];
 
   constructor(props) {
     super(props);
@@ -55,6 +55,7 @@ class UIShell extends Component {
     return (
       <SideNavMenuItem
         href="# "
+        key={label}
         isActive={label === this.state.patternName ? true : false}
         onClick={e => this.onPatternSelection(label)}
       >

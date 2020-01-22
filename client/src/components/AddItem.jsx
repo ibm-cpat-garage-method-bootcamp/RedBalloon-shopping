@@ -10,14 +10,15 @@ import "../pattern-components/patterns.scss";
 
 let checkFlag = true;
 
-class ItemsForm extends Component {
+class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataToSave: {},
       name: "",
       size: "",
-      comment: ""
+      comment: "",
+      nameInvalid: null
     };
   }
 
@@ -53,20 +54,21 @@ class ItemsForm extends Component {
     return checkFlag;
   };
 
+  clearForm = () => this.setState({ 
+    name: '',
+    size: '',
+    comment: ''
+  });
+
   saveForm = event => {
     event.preventDefault();
     if (this.checkForm()) {
-      let dataToSave = {
+      this.props.itemManager.addItem({
         name: this.state.name,
         size: this.state.size,
         comment: this.state.comment
-      };
-      this.setState({ 
-        dataToSave,
-        name: '',
-        size: '',
-        comment: ''
-      });
+      })
+      this.clearForm()
     }
   };
 
@@ -130,29 +132,8 @@ class ItemsForm extends Component {
         </div>
         <br />
         <br />
-        {Object.keys(this.state.dataToSave).length > 0 && (
-          <div className="bx--row">
-            <div className="bx--col-xs-12 left-align">
-              <Tile>
-                {Object.keys(this.state.dataToSave).map(item => (
-                  <p key={item}>
-                    &nbsp;&nbsp;
-                    <strong>
-                      {item.charAt(0).toUpperCase() +
-                        item.slice(1).replace(/([A-Z])/g, " $1")}
-                      :
-                    </strong>{" "}
-                    {this.state.dataToSave[item]}
-                  </p>
-                ))}
-              </Tile>
-              <br />
-              <br />
-            </div>
-          </div>
-        )}
       </div>
     );
   }
 }
-export default ItemsForm;
+export default AddItem;
