@@ -81,7 +81,7 @@ class TableList extends Component {
 
   renderRow = (row, id) => {
     return (
-      <StructuredListRow key={id} onClick={() => this.onRowClick(row)}>
+      <StructuredListRow key={id}>
         <div>
           <StructuredListInput
             id={`row-${id}`}
@@ -92,7 +92,7 @@ class TableList extends Component {
             checked={row.status}
           />
           <StructuredListCell>
-            <input type="checkbox" checked={row.status} onChange={this.doNothing} data-testid="check"/>
+            <input type="checkbox" checked={row.status} onClick={() => this.onRowClick(row)} data-testid="check"/>
           </StructuredListCell>
         </div>
         {this.columns.map(col => {
@@ -158,8 +158,13 @@ class TableList extends Component {
                   }
 
                   var location = "";
+                  
                   for (var j = 0; j < row.locations.length; j++){
+                    if (row.locations[j][1] !== undefined){
                     location += row.locations[j][0] + ": " + row.locations[j][1] + "\r\n";
+                    } else{
+                      location = row.locations;
+                    }
                   }
                   console.log(location);
                   row.locations = location;
