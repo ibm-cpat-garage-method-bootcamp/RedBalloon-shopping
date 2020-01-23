@@ -6,12 +6,10 @@ import {
   StructuredListHead,
   StructuredListBody,
   StructuredListInput,
-  Icon,
   Dropdown,
   DropdownItem,
 
 } from "carbon-components-react";
-import { iconCheckmarkSolid } from "carbon-icons";
 import Header from "./Header";
 import "./patterns.scss";
 
@@ -58,6 +56,7 @@ class TableList extends Component {
     this.state = {
       data: [],
       selectedRow: 0,
+      filter: ""
     };
   }
 
@@ -75,9 +74,9 @@ class TableList extends Component {
   filterTable = i => {
     if (i.value === "true"){
       var data2 = this.data.filter(this.filterData);
-      this.setState({ data: data2 });
+      this.setState({ data: data2, filter: i.value });
     }else {
-      this.setState({ data: this.data });
+      this.setState({ data: this.data, filter: i.value });
     }
   }
 
@@ -89,12 +88,6 @@ class TableList extends Component {
   }
 
   onRowClick = row => {
-
-    // if (this.data[id].Status === false){
-    //   this.data[id].Status = true;
-    // } else {
-    //   this.data[id].Status = false;
-    // }
     for (var i = 0; i < this.data.length; i++){
       if (this.data[i].Name === row.Name){
         if (this.data[i].Status === true){
@@ -104,8 +97,18 @@ class TableList extends Component {
         }
       }
     }
-    this.setState({ data: this.data });
+    //this.setState({ data: this.state.data });
+    this.onRowClickFilter(this.state.filter);
   };
+
+  onRowClickFilter = filter => {
+    if (filter === "true"){
+      var data2 = this.data.filter(this.filterData);
+      this.setState({ data: data2, filter: filter });
+    }else {
+      this.setState({ data: this.state.data, filter: filter });
+    }
+  }
 
   renderRow = (row, id) => {
     return (
