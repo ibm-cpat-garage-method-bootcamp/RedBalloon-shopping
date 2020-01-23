@@ -92,7 +92,7 @@ class TableList extends Component {
             checked={row.status}
           />
           <StructuredListCell>
-            <input type="checkbox" checked={row.status} onChange={this.doNothing}/>
+            <input type="checkbox" checked={row.status} onChange={this.doNothing} data-testid="check"/>
           </StructuredListCell>
         </div>
         {this.columns.map(col => {
@@ -123,7 +123,8 @@ class TableList extends Component {
           <Dropdown
             ariaLabel="dropdown menu label"
             defaultText="Filter By:"
-            onChange={this.filterTable}>
+            onChange={this.filterTable}
+            data-testid="dropdown">
             
             <DropdownItem itemText="Needed" value="true" />
             <DropdownItem itemText="None" value="false" />
@@ -159,7 +160,7 @@ class TableList extends Component {
                 <div data-testid="test-row-count" value={datalength_equals_rows} ></div>
               </StructuredListBody>
             </StructuredListWrapper>
-          </div>
+          </div> 
         </div>
       </div>
     );
