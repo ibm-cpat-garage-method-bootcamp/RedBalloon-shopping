@@ -27,7 +27,7 @@ class AddItem extends Component {
     let dataToSave = {
       name: this.state.name,
       size: this.state.size,
-      comment: this.state.comment
+      comment: this.state.comment,
     };
     this.setState({ dataToSave });
   }

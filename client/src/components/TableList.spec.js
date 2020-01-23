@@ -12,36 +12,44 @@ test("Table List exists (canary)", () => {
   expect(taElement).toBeInTheDocument();
 });
 
- test("Table Row Count is equal to data count", () => {
-   const { getByTestId } = render(<TableList itemManager={new ItemManager()}/>);
-   const taElement = getByTestId("test-row-count");
-   //console.log(taElement.getAttribute('value'));
-   const boolean = Boolean(taElement.getAttribute('value'));
-   expect(boolean).toBe(true);
- });
+test("Table Row Count is equal to data count", () => {
+  const itemManager = new ItemManager();
+  itemManager.addItem({
+    name: 'bob', 
+    size: 'XL', 
+    comment: 'this is cool',
+    status: false
+  });
+  itemManager.addItem({
+    name: 'bobby', 
+    size: 'XL', 
+    comment: 'this is cool',
+    status: false
+  });
+  const { getByTestId } = render(<TableList itemManager={itemManager}/>);
+  const taElement = getByTestId("test-row-count");
+  const boolean = Boolean(taElement.getAttribute('value'));
+  expect(boolean).toBe(true);
+});
 
-/* Could also include tests for other elements */
+test("Checkmark Status", () => {
+  const itemManager = new ItemManager();
+  itemManager.addItem({
+    name: 'bob', 
+    size: 'XL', 
+    comment: 'this is cool',
+    status: false
+  });
+  itemManager.addItem({
+    name: 'bob', 
+    size: 'XL', 
+    comment: 'this is cool',
+    status: false
+  });
 
-// test("the default column count should be 30", () => {
-//   const { getByTestId } = render(<WWBody />);
-//   const colCount = getByTestId("column-count");
-//   expect(colCount.value).toBe("30");
-// });
+  const { getByTestId } = render(<TableList itemManager={itemManager}/>);
+  const taElement = getByTestId("check");
+  fireEvent.click(taElement);
 
-// test("the column count field is numeric only", () => {
-//   const { getByTestId } = render(<WWBody />);
-//   const colCount = getByTestId("column-count");
-//   fireEvent.change(colCount, { target: { value: "A" } });
-//   expect(colCount.value).toBe("");
-//   fireEvent.change(colCount, { target: { value: "5" } });
-//   expect(colCount.value).toBe("5");
-// });
-
-// test("adding text should result in an update to the view only area", () => {
-//   const { getByTestId } = render(<WWBody />);
-//   const colCount = getByTestId("column-count");
-//   const inputField = getByTestId("input-text-area");
-//   const outputField = getByTestId("output-text-area");
-//   fireEvent.change(inputField, { target: { value: "Some text" } });
-//   expect(outputField.value).toBe("Some text");
-// });
+  expect(taElement.checked).toBe(true);
+});

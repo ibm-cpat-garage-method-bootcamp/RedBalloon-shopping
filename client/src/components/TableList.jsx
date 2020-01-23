@@ -6,6 +6,8 @@ import {
   StructuredListHead,
   StructuredListBody,
   StructuredListInput,
+  Dropdown,
+  DropdownItem,
 } 
 from "carbon-components-react";
 import Header from "../pattern-components/Header";
@@ -17,27 +19,69 @@ class TableList extends Component {
 
   columns = ['name', 'size', 'comment'];
 
+
   constructor(props) {
     super(props);
     this.state = {
       data: [],
       selectedRow: 0,
     };
+    this.data = [];
   }
 
   async componentDidMount() {
     this.setState({
       data: Object.values(this.props.itemManager.getItems()),
     })
+    this.data = Object.values(this.props.itemManager.getItems());
   }
 
-  onRowClick = id => {
-    this.setState({ selectedRow: id });
+  doNothing = i => {
+
+  }
+
+  filterTable = i => {
+    if (i.value === "true"){
+      var data2 = this.data.filter(this.filterData);
+      this.setState({ data: data2, filter: i.value });
+    }else {
+      this.setState({ data: this.data, filter: i.value });
+    }
+  }
+
+  filterData = listdata => {
+    console.log(listdata);
+    if (listdata.status === true){
+      return listdata;
+    }
+  }
+
+  onRowClick = row => {
+    for (var i = 0; i < this.data.length; i++){
+      if (this.data[i].name === row.name){
+        if (this.data[i].status === true){
+          this.data[i].status = false;
+        } else {
+          this.data[i].status = true;
+        }
+      }
+    }
+    //this.setState({ data: this.state.data });
+    this.onRowClickFilter(this.state.filter);
   };
+
+  onRowClickFilter = filter => {
+    if (filter === "true"){
+      var data2 = this.data.filter(this.filterData);
+      this.setState({ data: data2, filter: filter });
+    }else {
+      this.setState({ data: this.state.data, filter: filter });
+    }
+  }
 
   renderRow = (row, id) => {
     return (
-      <StructuredListRow key={id} onClick={() => this.onRowClick(id)}>
+      <StructuredListRow key={id} onClick={() => this.onRowClick(row)}>
         <div>
           <StructuredListInput
             id={`row-${id}`}
@@ -45,14 +89,11 @@ class TableList extends Component {
             title="row-0"
             name="row-0"
             //defaultChecked={this.state.selectedRow === id}
-            checked={this.state.selectedRow === id}
+            checked={row.status}
           />
-          {/* <StructuredListCell>
-            <Icon
-              className="bx--structured-list-svg"
-              icon={iconCheckmarkSolid}
-            />
-          </StructuredListCell> */}
+          <StructuredListCell>
+            <input type="checkbox" checked={row.status} onChange={this.doNothing} data-testid="check"/>
+          </StructuredListCell>
         </div>
         {this.columns.map(col => {
           return (
@@ -66,6 +107,7 @@ class TableList extends Component {
   };
 
   render() {
+    
     const data = this.state.data;
     
     var datalength_equals_rows = true;
@@ -76,7 +118,18 @@ class TableList extends Component {
           //subtitle={this.subtitle}
         />
         <div className="bx--row">
-          <div className="bx--col-xs-12">
+          <div className="bx--col-xs-12">     
+          <div>
+          <Dropdown
+            ariaLabel="dropdown menu label"
+            defaultText="Filter By:"
+            onChange={this.filterTable}
+            data-testid="dropdown">
+            
+            <DropdownItem itemText="Needed" value="true" />
+            <DropdownItem itemText="None" value="false" />
+          </Dropdown>
+        </div>
             <StructuredListWrapper selection border
             data-testid="input-listwrapper">
               <StructuredListHead>
@@ -104,10 +157,10 @@ class TableList extends Component {
                   return this.renderRow(row, i);
                 })}
                 
-                <div data-testid="test-row-count" value={datalength_equals_rows}></div>
+                <div data-testid="test-row-count" value={datalength_equals_rows} ></div>
               </StructuredListBody>
             </StructuredListWrapper>
-          </div>
+          </div> 
         </div>
       </div>
     );
