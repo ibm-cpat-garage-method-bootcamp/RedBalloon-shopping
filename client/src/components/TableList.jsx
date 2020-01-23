@@ -6,45 +6,15 @@ import {
   StructuredListHead,
   StructuredListBody,
   StructuredListInput,
-  Icon
 } from "carbon-components-react";
-import { iconCheckmarkSolid } from "carbon-icons";
-import Header from "./Header";
-import "./patterns.scss";
+import Header from "../pattern-components/Header";
+import "../pattern-components/patterns.scss";
 
 class TableList extends Component {
   title = 'Shopping List';
   //subtitle = 'This pattern will display and array of model objects in a multi column grid/table.';
 
-  columns = ['Name', 'Size', 'Comment'];
-  formatters = {
-    'ZipCode': function(val) {
-      return val + '-0000';
-    }
-  };
-
-  data = [
-    {
-      Name: "Corn",
-      Size: "Medium",
-      Comment: "I love Elote",
-    },
-    {
-      Name: "Chocolate Milk",
-      Size: "Large",
-      Comment: "",
-    },
-    {
-      Name: "Chicken Breast",
-      Size: "10 lbs",
-      Comment: "Organic Only",    
-    },
-    {
-      Name: "Celery",
-      Size: "50 oz",
-      Comment: "",
-    }
-  ];
+  columns = ['name', 'size', 'comment'];
 
   constructor(props) {
     super(props);
@@ -55,9 +25,8 @@ class TableList extends Component {
   }
 
   async componentDidMount() {
-
     this.setState({
-      data: this.data,
+      data: Object.values(this.props.itemManager.getItems()),
     })
   }
 
@@ -85,11 +54,9 @@ class TableList extends Component {
           </StructuredListCell> */}
         </div>
         {this.columns.map(col => {
-          const format = this.formatters[col] || function(val) { return val; };
-
           return (
             <StructuredListCell key={col} className="simple-list-row">
-              {format(row[col])}
+              {row[col]}
             </StructuredListCell>
           );
         })}

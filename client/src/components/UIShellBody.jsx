@@ -1,28 +1,25 @@
 import React, { Component } from "react";
 import AddItem from "./AddItem";
 import { ItemManager } from "./ItemManager"
-import SimpleList from "../pattern-components/SimpleList";
-import TableList from "../pattern-components/TableList";
+import TableList from "./TableList";
 import "../pattern-components/patterns.scss";
 
 class UIShellBody extends Component {
   components = {
     "Add Item": AddItem,
-    "Simple List": SimpleList,
-    "Basic Page": TableList
+    "List Items": TableList
   };
-  defaultComponent = "Add Item";
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       itemManager: new ItemManager()
     }
   }
 
   render() {
-    let curScreen = this.defaultComponent;
-    const PatternName = this.components[curScreen];
+    const PatternName = this.components[this.props.patternName];
+
     return (
       <div className="pattern-container">
         <PatternName 

@@ -2,17 +2,18 @@ import React from "react";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import TableList from "./TableList";
 import '@testing-library/jest-dom';
+import { ItemManager } from "./ItemManager"
 
 afterEach(cleanup);
 
 test("Table List exists (canary)", () => {
-  const { getByTestId } = render(<TableList />);
+  const { getByTestId } = render(<TableList itemManager={new ItemManager()}/>);
   const taElement = getByTestId("input-listwrapper");
   expect(taElement).toBeInTheDocument();
 });
 
  test("Table Row Count is equal to data count", () => {
-   const { getByTestId } = render(<TableList />);
+   const { getByTestId } = render(<TableList itemManager={new ItemManager()}/>);
    const taElement = getByTestId("test-row-count");
    //console.log(taElement.getAttribute('value'));
    const boolean = Boolean(taElement.getAttribute('value'));

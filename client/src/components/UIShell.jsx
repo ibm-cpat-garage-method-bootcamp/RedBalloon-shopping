@@ -34,7 +34,7 @@ const Fade20 = () => (
 class UIShell extends Component {
   header = "Menu Header";
   menuTitle = "Menu Title";
-  menuItems = ["Add Item"];
+  menuItems = ["Add Item", "List Items"];
 
   constructor(props) {
     super(props);
