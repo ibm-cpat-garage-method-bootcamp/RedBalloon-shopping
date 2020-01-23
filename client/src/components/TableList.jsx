@@ -129,17 +129,7 @@ class TableList extends Component {
           //subtitle={this.subtitle}
         />
         <div className="bx--row">
-        
-          <Search
-          placeHolderText="Search Location"
-          labelText="yo"
-          onChange={this.searchFilter}>
-          
-          </Search>
-       
-          
           <div className="bx--col-xs-12">  
-
           <div>
           <Dropdown
             ariaLabel="dropdown menu label"
