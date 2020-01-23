@@ -16,3 +16,12 @@ $feature-flags: (
 .bx--content {
   padding: 0px;
 }
+
+.location-row {
+  display: flex;
+}
+.location-input{
+  border-style: solid;
+  border-color: grey;
+  border-width: 0.05rem;
+}

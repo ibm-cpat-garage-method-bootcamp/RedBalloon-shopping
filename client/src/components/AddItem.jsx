@@ -18,6 +18,7 @@ class AddItem extends Component {
       name: "",
       size: "",
       comment: "",
+      locations: [['','']],
       nameInvalid: null
     };
   }
@@ -45,6 +46,16 @@ class AddItem extends Component {
     }
   };
 
+  saveLocation = (e, idx, field) => {
+    const { value } = e.target
+    const { locations } = this.state
+    if (field === 'STORE') locations[idx][0] = value
+    else if (field === 'AISLE') locations[idx][1] = value
+    this.setState({
+      locations
+    })
+  }
+
   checkForm = () => {
     checkFlag = true;
     if (!this.state.name) {
@@ -57,7 +68,8 @@ class AddItem extends Component {
   clearForm = () => this.setState({ 
     name: '',
     size: '',
-    comment: ''
+    comment: '',
+    locations: [['', '']]
   });
 
   saveForm = event => {
@@ -66,11 +78,24 @@ class AddItem extends Component {
       this.props.itemManager.addItem({
         name: this.state.name,
         size: this.state.size,
-        comment: this.state.comment
+        comment: this.state.comment,
+        locations: this.purgeEmptyLocations(this.state.locations)
       })
       this.clearForm()
     }
   };
+
+  addLocation = () => {
+    const { locations } = this.state
+    locations.push(['', ''])
+    this.setState({
+      locations
+    })
+  }
+
+  purgeEmptyLocations = (locations) => locations.filter(
+    ([store, aisle]) => (store !== '' && aisle !== '')
+  )
 
   render() {
     return (
@@ -118,6 +143,46 @@ class AddItem extends Component {
                   labelText="comment"
                   maxLength="100"
                 />
+                <br />
+                <br />                
+                {this.state.locations.map((location, i) => (
+                    <div 
+                    key={`location-${i}`}
+                    className="location-row"
+                    >
+                      <TextInput
+                        className="location-input"
+                        id={`store-${i}`}
+                        name={`store-${i}`}
+                        data-testid={`store-${i}`}
+                        value={location[0] || ""}
+                        onChange={(e) => {
+                          e.preventDefault()
+                          this.saveLocation(e, i, 'STORE')
+                        }}
+                        labelText="store"
+                        maxLength="100"
+                      />            
+                      <TextInput
+                        className="location-input"
+                        id={`aisle-${i}`}
+                        name={`aisle-${i}`}
+                        data-testid={`aisle-${i}`}
+                        value={location[1] || ""}
+                        onChange={(e) => {
+                          e.preventDefault()
+                          this.saveLocation(e, i, 'AISLE')
+                        }}
+                        labelText="aisle"
+                        maxLength="100"
+                      />                      
+                    </div>
+                  ))
+                }
+                <Button 
+                  onClick={this.addLocation}
+                  data-testid="addLocation"
+                >Add</Button>
                 <br />
                 <br />
                 <div className="left-align">

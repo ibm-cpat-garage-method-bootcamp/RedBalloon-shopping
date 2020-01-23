@@ -2,6 +2,7 @@ import React from 'react';
 import AddItem from './AddItem';
 
 import '@testing-library/jest-dom';
+
 import { render, fireEvent } from "@testing-library/react";
 import { ItemManager } from "./ItemManager"
 
@@ -54,11 +55,23 @@ describe('AddItem', () => {
     fireEvent.change(comment.input, { target: { value: 'Bob Trufant' } });
     expect(comment.input.value).toBe('Bob Trufant');
 
+    //adds text to store location input
+    const store0 = setup(utils, 'store-0');
+    fireEvent.change(store0.input, { target: { value: 'Bob Trufant' } });
+    expect(store0.input.value).toBe('Bob Trufant');
+
+    //adds text to aisle location input
+    const aisle0 = setup(utils, 'aisle-0');
+    fireEvent.change(aisle0.input, { target: { value: 'Bob Trufant' } });
+    expect(aisle0.input.value).toBe('Bob Trufant');
+
     //clicks submit button
     fireEvent.click(submit);
     expect(name.input.value).toBe('');
     expect(size.input.value).toBe('');
     expect(comment.input.value).toBe('');
+    expect(store0.input.value).toBe('');
+    expect(aisle0.input.value).toBe('');
   });
 
   test('form should log to console upon successful submit', () => {
@@ -108,8 +121,76 @@ describe('AddItem', () => {
       'bob trufant': {
         name: 'Bob Trufant',
         size: 'Bob Trufant',
-        comment: 'Bob Trufant'
+        comment: 'Bob Trufant',
+        locations: []
       }
     })
   })
+
+  test('clicking plus adds new location row', () => {
+    const utils = render(<AddItem itemManager={new ItemManager()}/>);
+    const addLocation = utils.getByTestId('addLocation');
+
+    fireEvent.click(addLocation);
+
+    const store1 = utils.getByTestId(/store-1/);
+    const aisle1 = utils.getByTestId(/aisle-1/);
+
+    expect(store1).toBeInTheDocument();
+    expect(aisle1).toBeInTheDocument();
+  })
+
+  test('should save location input data to state', () => {
+    const utils = render(<AddItem itemManager={new ItemManager()}/>);
+
+    const store0 = setup(utils, 'store-0');
+    fireEvent.change(store0.input, { target: { value: 'Bob Trufant' } });
+    expect(store0.input.value).toBe('Bob Trufant');
+
+    const aisle0 = setup(utils, 'aisle-0');
+    fireEvent.change(aisle0.input, { target: { value: 'Bob Trufant' } });
+    expect(aisle0.input.value).toBe('Bob Trufant');
+  })
+
+  test('should add locations to itemManger upon submit', () => {
+    const itemManager = new ItemManager();
+    const utils = render(<AddItem itemManager={itemManager}/>); 
+    const submit = utils.getByTestId('submit');
+
+    const name = setup(utils, 'name');
+    fireEvent.change(name.input, { target: { value: 'Bob Trufant' } });
+
+    const store0 = setup(utils, 'store-0');
+    fireEvent.change(store0.input, { target: { value: 'Bob Trufant' } });
+
+    const aisle0 = setup(utils, 'aisle-0');
+    fireEvent.change(aisle0.input, { target: { value: 'Bob Trufant' } });
+
+    fireEvent.click(submit);
+
+    expect(itemManager.getItems()['bob trufant'].locations).toEqual([['Bob Trufant', 'Bob Trufant']])
+  })
+
+  test('should purge emtpy location rows', () => {
+    const itemManager = new ItemManager()
+    const utils = render(<AddItem itemManager={itemManager}/>);
+    const addLocation = utils.getByTestId('addLocation');
+    const submit = utils.getByTestId('submit');
+
+    const name = setup(utils, 'name');
+    fireEvent.change(name.input, { target: { value: 'Bob Trufant' } });
+
+    fireEvent.click(addLocation);
+
+    const store1 = setup (utils, 'store-1');
+    fireEvent.change(store1.input, { target: { value: 'Bob Trufant' } });
+    const aisle1 = setup (utils, 'aisle-1');
+    fireEvent.change(aisle1.input, { target: { value: 'Bob Trufant' } });
+
+
+    fireEvent.click(submit);
+
+    expect(itemManager.getItems()['bob trufant'].locations.length).toBe(1)
+  })
+
 });
