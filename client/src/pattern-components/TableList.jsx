@@ -6,7 +6,10 @@ import {
   StructuredListHead,
   StructuredListBody,
   StructuredListInput,
-  Icon
+  Icon,
+  Dropdown,
+  DropdownItem,
+
 } from "carbon-components-react";
 import { iconCheckmarkSolid } from "carbon-icons";
 import Header from "./Header";
@@ -46,7 +49,7 @@ class TableList extends Component {
       Name: "Celery",
       Size: "50 oz",
       Comment: "",
-      Status: false
+      Status: true
     }
   ];
 
@@ -69,7 +72,24 @@ class TableList extends Component {
 
   }
 
+  filterTable = i => {
+    if (i.value === "true"){
+      var data2 = this.data.filter(this.filterData);
+      this.setState({ data: data2 });
+    }else {
+      this.setState({ data: this.data });
+    }
+  }
+
+  filterData = listdata => {
+    console.log(listdata);
+    if (listdata.Status === true){
+      return listdata;
+    }
+  }
+
   onRowClick = id => {
+
     if (this.data[id].Status === false){
       this.data[id].Status = true;
     } else {
@@ -118,7 +138,17 @@ class TableList extends Component {
           //subtitle={this.subtitle}
         />
         <div className="bx--row">
-          <div className="bx--col-xs-12">
+          <div className="bx--col-xs-12">     
+          <div>
+          <Dropdown
+            ariaLabel="dropdown menu label"
+            defaultText="Filter By:"
+            onChange={this.filterTable}>
+            
+            <DropdownItem itemText="Needed" value="true" />
+            <DropdownItem itemText="None" value="false" />
+          </Dropdown>
+        </div>
             <StructuredListWrapper selection border
             data-testid="input-listwrapper">
               <StructuredListHead>
