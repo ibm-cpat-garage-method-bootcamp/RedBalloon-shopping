@@ -6,7 +6,8 @@ import {
   StructuredListHead,
   StructuredListBody,
   StructuredListInput,
-} from "carbon-components-react";
+} 
+from "carbon-components-react";
 import Header from "../pattern-components/Header";
 import "../pattern-components/patterns.scss";
 
