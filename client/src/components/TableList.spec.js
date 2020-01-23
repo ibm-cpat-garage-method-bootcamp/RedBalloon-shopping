@@ -18,13 +18,15 @@ test("Table Row Count is equal to data count", () => {
     name: 'bob', 
     size: 'XL', 
     comment: 'this is cool',
-    status: false
+    status: false,
+    locations: []
   });
   itemManager.addItem({
     name: 'bobby', 
     size: 'XL', 
     comment: 'this is cool',
-    status: false
+    status: false,
+    locations: []
   });
   const { getByTestId } = render(<TableList itemManager={itemManager}/>);
   const taElement = getByTestId("test-row-count");
@@ -35,10 +37,11 @@ test("Table Row Count is equal to data count", () => {
 test("Checkmark Status", () => {
   const itemManager = new ItemManager();
   itemManager.addItem({
-    name: 'bob', 
+    name: 'bobby', 
     size: 'XL', 
     comment: 'this is cool',
-    status: false
+    status: false,
+    locations: []
   });
 
   const { getByTestId } = render(<TableList itemManager={itemManager}/>);
@@ -51,10 +54,11 @@ test("Checkmark Status", () => {
 test('should add input field to row when row is checked', () => {
   const itemManager = new ItemManager();
   itemManager.addItem({
-    name: 'bob', 
+    name: 'bobby', 
     size: 'XL', 
     comment: 'this is cool',
-    status: false
+    status: false,
+    locations: []
   });
 
   const { getByTestId } = render(<TableList itemManager={itemManager}/>);
@@ -74,7 +78,9 @@ test('shoud save quantity to model when add button is clicked', () => {
     name: 'bob', 
     size: 'XL', 
     comment: 'this is cool',
-    status: false
+    status: false,
+    locations: [],
+    quantity: '1'
   });
 
   console.log(itemManager)
