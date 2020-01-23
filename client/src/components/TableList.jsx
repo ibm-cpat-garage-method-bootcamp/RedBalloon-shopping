@@ -177,7 +177,7 @@ class TableList extends Component {
                 </StructuredListRow>
               </StructuredListHead>
 
-              <StructuredListBody>
+              <StructuredListBody color="yellow">
                 {data.map((row, i) => {
                   
                   if (i + 1 === data.length){
