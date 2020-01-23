@@ -101,10 +101,8 @@ class AddItem extends Component {
     return (
       <div className="bx--grid pattern-container">
         <Header
-          title="Update Form"
-          subtitle="Update form is based on the Display
-            Form pattern but will display model data and then validate ready for
-            it to be updated."
+          title="Add Item"
+          subtitle="Add an item to your grocery list."
         />
         <div className="bx--row">
           <div className="bx--col-xs-12">
@@ -144,8 +142,10 @@ class AddItem extends Component {
                   maxLength="100"
                 />
                 <br />
-                <br />                
+                <br />     
+                <p>Locations</p>      
                 {this.state.locations.map((location, i) => (
+                  <div>
                     <div 
                     key={`location-${i}`}
                     className="location-row"
@@ -175,8 +175,10 @@ class AddItem extends Component {
                         }}
                         labelText="aisle"
                         maxLength="100"
-                      />                      
+                      />  
                     </div>
+                    <br />
+                  </div>
                   ))
                 }
                 <Button 

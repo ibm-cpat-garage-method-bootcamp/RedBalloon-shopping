@@ -17,6 +17,20 @@ $feature-flags: (
   padding: 0px;
 }
 
+.pattern-container {
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.bx--btn {
+  border-radius: 0.25rem;
+}
+
+.bx--tile {
+  border-radius: 0.5rem;
+}
+
 .location-row {
   display: flex;
 }
@@ -24,6 +38,7 @@ $feature-flags: (
   border-style: solid;
   border-color: grey;
   border-width: 0.05rem;
+  width: 90%;
 }
 
 .quantity-row {
