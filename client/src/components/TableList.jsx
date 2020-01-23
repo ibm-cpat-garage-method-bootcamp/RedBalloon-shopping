@@ -17,7 +17,7 @@ class TableList extends Component {
   title = 'Shopping List';
   //subtitle = 'This pattern will display and array of model objects in a multi column grid/table.';
 
-  columns = ['name', 'size', 'comment'];
+  columns = ['name', 'size', 'comment', 'locations'];
 
 
   constructor(props) {
@@ -98,7 +98,9 @@ class TableList extends Component {
         {this.columns.map(col => {
           return (
             <StructuredListCell key={col} className="simple-list-row">
-              {row[col]}
+              {
+              row[col]
+              }
             </StructuredListCell>
           );
         })}
@@ -154,6 +156,14 @@ class TableList extends Component {
                   } else {
                     datalength_equals_rows = false;
                   }
+
+                  var location = "";
+                  for (var j = 0; j < row.locations.length; j++){
+                    location += row.locations[j][0] + ": " + row.locations[j][1] + "\r\n";
+                  }
+                  console.log(location);
+                  row.locations = location;
+                  
                   return this.renderRow(row, i);
                 })}
                 
