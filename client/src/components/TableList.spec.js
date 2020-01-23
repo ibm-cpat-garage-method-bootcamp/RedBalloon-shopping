@@ -40,6 +40,16 @@ test("Checkmark Status", () => {
     comment: 'this is cool',
     status: false
   });
+
+  const { getByTestId } = render(<TableList itemManager={itemManager}/>);
+  const taElement = getByTestId("check");
+  fireEvent.click(taElement);
+
+  expect(taElement.checked).toBe(true);
+});
+
+test('should add input field to row when row is checked', () => {
+  const itemManager = new ItemManager();
   itemManager.addItem({
     name: 'bob', 
     size: 'XL', 
@@ -51,5 +61,36 @@ test("Checkmark Status", () => {
   const taElement = getByTestId("check");
   fireEvent.click(taElement);
 
-  expect(taElement.checked).toBe(true);
-});
+  const quantityField = getByTestId("quantity");
+  expect(quantityField).toBeInTheDocument();
+
+  fireEvent.click(taElement);
+  expect(() => {getByTestId("quantity")}).toThrowError();
+})
+
+test('shoud save quantity to model when add button is clicked', () => {
+  const itemManager = new ItemManager();
+  itemManager.addItem({
+    name: 'bob', 
+    size: 'XL', 
+    comment: 'this is cool',
+    status: false
+  });
+
+  console.log(itemManager)
+
+  const { getByTestId } = render(<TableList itemManager={itemManager}/>);
+  const taElement = getByTestId("check");
+  fireEvent.click(taElement);
+
+  const quantityField = getByTestId("quantity");
+  fireEvent.change(quantityField, { target: { value: '999' } });
+
+  // const addButton = getByTestId("add");
+  // fireEvent.click(addButton)
+
+  console.log(itemManager)
+
+  expect(itemManager.getItems()['bob'].quantity).toBe('999');
+
+})
