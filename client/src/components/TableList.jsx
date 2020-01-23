@@ -8,8 +8,13 @@ import {
   StructuredListInput,
   Dropdown,
   DropdownItem,
+  Search,
+  SearchSkeleton,
+  SearchFilterButton,
+  SearchLayoutButton,
 } 
 from "carbon-components-react";
+
 import Header from "../pattern-components/Header";
 import "../pattern-components/patterns.scss";
 
@@ -79,6 +84,10 @@ class TableList extends Component {
     }
   }
 
+  searchFilter = filter => {
+    console.log(filter);
+  }
+
   renderRow = (row, id) => {
     return (
       <StructuredListRow key={id}>
@@ -120,7 +129,17 @@ class TableList extends Component {
           //subtitle={this.subtitle}
         />
         <div className="bx--row">
-          <div className="bx--col-xs-12">     
+        
+          <Search
+          placeHolderText="Search Location"
+          labelText="yo"
+          onChange={this.searchFilter}>
+          
+          </Search>
+       
+          
+          <div className="bx--col-xs-12">  
+
           <div>
           <Dropdown
             ariaLabel="dropdown menu label"
@@ -132,6 +151,7 @@ class TableList extends Component {
             <DropdownItem itemText="None" value="false" />
           </Dropdown>
         </div>
+        
             <StructuredListWrapper selection border
             data-testid="input-listwrapper">
               <StructuredListHead>
