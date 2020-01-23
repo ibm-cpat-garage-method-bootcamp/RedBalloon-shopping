@@ -88,19 +88,28 @@ class TableList extends Component {
     }
   }
 
-  onRowClick = id => {
+  onRowClick = row => {
 
-    if (this.data[id].Status === false){
-      this.data[id].Status = true;
-    } else {
-      this.data[id].Status = false;
+    // if (this.data[id].Status === false){
+    //   this.data[id].Status = true;
+    // } else {
+    //   this.data[id].Status = false;
+    // }
+    for (var i = 0; i < this.data.length; i++){
+      if (this.data[i].Name === row.Name){
+        if (this.data[i].Status === true){
+          this.data[i].Status = false;
+        } else {
+          this.data[i].Status = true;
+        }
+      }
     }
     this.setState({ data: this.data });
   };
 
   renderRow = (row, id) => {
     return (
-      <StructuredListRow key={id} onClick={() => this.onRowClick(id)}>
+      <StructuredListRow key={id} onClick={() => this.onRowClick(row)}>
         <div>
           <StructuredListInput
             id={`row-${id}`}
