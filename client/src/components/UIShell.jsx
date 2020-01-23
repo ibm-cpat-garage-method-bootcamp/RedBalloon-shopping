@@ -32,8 +32,8 @@ const Fade20 = () => (
 );
 
 class UIShell extends Component {
-  header = "Menu Header";
-  menuTitle = "Menu Title";
+  header = "Red Balloon Shopping List";
+  menuTitle = "Menu";
   menuItems = ["Add Item", "List Items"];
 
   constructor(props) {
@@ -67,7 +67,7 @@ class UIShell extends Component {
   render() {
     return (
       <div>
-        <Header aria-label="IBM Platform Name">
+        <Header aria-label="IBM Platform Name" style={{'backgroundColor': 'darkred'}}>
           <SkipToContent />
           <HeaderName href="#" prefix="IBM">
             {this.header}

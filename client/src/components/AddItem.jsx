@@ -182,6 +182,7 @@ class AddItem extends Component {
                 <Button 
                   onClick={this.addLocation}
                   data-testid="addLocation"
+                  style={{'backgroundColor': 'darkred'}}
                 >Add</Button>
                 <br />
                 <br />
@@ -189,6 +190,7 @@ class AddItem extends Component {
                   <Button 
                     onClick={this.saveForm}
                     data-testid="submit"
+                    style={{'backgroundColor': 'darkred'}}
                   >Update</Button>
                 </div>
               </Form>
