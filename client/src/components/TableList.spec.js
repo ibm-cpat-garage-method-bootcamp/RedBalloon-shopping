@@ -41,7 +41,7 @@ test("Checkmark Status", () => {
     status: false
   });
   itemManager.addItem({
-    name: 'bobby', 
+    name: 'bob', 
     size: 'XL', 
     comment: 'this is cool',
     status: false
