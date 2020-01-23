@@ -8,10 +8,8 @@ import {
   StructuredListInput,
   Dropdown,
   DropdownItem,
-  Search,
-  SearchSkeleton,
-  SearchFilterButton,
-  SearchLayoutButton,
+  TextInput,
+  Button
 } 
 from "carbon-components-react";
 
@@ -79,18 +77,24 @@ class TableList extends Component {
     if (filter === "true"){
       var data2 = this.data.filter(this.filterData);
       this.setState({ data: data2, filter: filter });
-    }else {
+    } else {
       this.setState({ data: this.state.data, filter: filter });
     }
   }
 
-  searchFilter = filter => {
-    console.log(filter);
+  saveQuantity = (e, id) => {
+    const { value } = e.target;
+    const { data } = this.state;
+    const numbers = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+    if (numbers.has(Number(value[value.length - 1])) || value.length === 0) {
+      data[id].quantity = value
+      this.setState({ data })
+    }
   }
 
   renderRow = (row, id) => {
     return (
-      <StructuredListRow key={id}>
+      <StructuredListRow key={id} >
         <div>
           <StructuredListInput
             id={`row-${id}`}
@@ -101,7 +105,7 @@ class TableList extends Component {
             checked={row.status}
           />
           <StructuredListCell>
-            <input type="checkbox" checked={row.status} onClick={() => this.onRowClick(row)} data-testid="check"/>
+            <input type="checkbox" checked={row.status} onChange={() => this.onRowClick(row)} data-testid="check"/>
           </StructuredListCell>
         </div>
         {this.columns.map(col => {
@@ -113,6 +117,21 @@ class TableList extends Component {
             </StructuredListCell>
           );
         })}
+        {row.status && 
+          <div className="quantity-row">
+            <TextInput
+              id={`quantity-${id}`}
+              labelText={null}
+              value={row.quantity || ""}
+              onChange={(e) => {
+                e.preventDefault()
+                // console.log(e.target.value)
+                this.saveQuantity(e, id)
+              }}
+              data-testid="quantity">
+            </TextInput>
+          </div>
+        }
       </StructuredListRow>
     );
   };
